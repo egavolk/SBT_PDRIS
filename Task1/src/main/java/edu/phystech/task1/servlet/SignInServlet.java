@@ -49,6 +49,10 @@ public class SignInServlet extends HttpServlet {
                 writer.println(String.format("Hello, %s", username));
                 RequestDispatcher rd = request.getRequestDispatcher("/content.jsp");
                 rd.include(request, response);
+            }  else {
+                writer.println(String.format("Wrong password", username));
+                RequestDispatcher rd = request.getRequestDispatcher("/sign_in.jsp");
+                rd.include(request, response);
             }
 
         } catch (Exception e) {
