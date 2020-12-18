@@ -25,9 +25,6 @@ public class SignInServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        System.out.println(username);
-        System.out.println(password);
-
         if (!UserStorage.isUsernameExist(username)) {
             writer.println(String.format("User %s doesn't exist. Please, sign up to proceed", username));
             RequestDispatcher rd = request.getRequestDispatcher("/sign_in.jsp");
