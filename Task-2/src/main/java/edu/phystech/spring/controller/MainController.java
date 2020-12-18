@@ -1,9 +1,8 @@
 package edu.phystech.spring.controller;
 
 import edu.phystech.spring.Audits;
-import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import edu.phystech.spring.serializer.Serializer;
+import edu.phystech.spring.UsersDB;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,18 +11,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
-import java.util.HashMap;
-
 @Controller
 @RequestMapping("/")
 public class MainController {
-    @Autowired
-    @Qualifier("audits")
-    Audits audits;
+    private final Audits audits;
+    private final UsersDB usersDB;
+    private final Serializer serializer;
 
-    @Autowired
-    @Qualifier("usersDB")
-    HashMap<String, String> usersDB;
+    public MainController(Audits audits, UsersDB usersDB, Serializer serializer) {
+        this.audits = audits;
+        this.usersDB = usersDB;
+        this.serializer = serializer;
+    }
 
     @GetMapping("/")
     public RedirectView homeRedirect() {
@@ -42,26 +41,21 @@ public class MainController {
             Model model
     ) {
         if (username.isEmpty() || password.isEmpty()) {
-            model.addAttribute("message", "Username and password should not be empty");
-            return "sign_in";
+            return processAction(model, "sign_in", "Username and password should not be empty");
         }
 
-        if (usersDB.get(username) == null) {
-            audits.logAudit(null, Audits.Status.UNKNOWN_USER);
-            model.addAttribute("message",
-                    String.format("Unknown username %s. Please, sign up", username));
-            return "sign_in";
+        if (!usersDB.isUsernameExist(username)) {
+            return processActionWithAudit(model, null, Audits.Status.UNKNOWN_USER, "sign_in",
+                                          String.format("Unknown username %s. Please, sign up", username));
         }
 
-        if (usersDB.get(username).equals(password)) {
-            audits.logAudit(username, Audits.Status.SUCCESS);
-            model.addAttribute("message", String.format("Hello, %s!", username));
-            return "content";
+        if (usersDB.getUserPassword(username).equals(password)) {
+            return processActionWithAudit(model, username, Audits.Status.SUCCESS, "content",
+                                          String.format("Hello, %s!", username));
         }
         else {
-            audits.logAudit(username, Audits.Status.WRONG_PASSWORD);
-            model.addAttribute("message", String.format("Wrong password"));
-            return "sign_in";
+            return processActionWithAudit(model, username, Audits.Status.WRONG_PASSWORD, "sign_in",
+                                          "Wrong password");
         }
     }
 
@@ -77,33 +71,37 @@ public class MainController {
             Model model
     ) {
         if (username.isEmpty() || password.isEmpty()) {
-            model.addAttribute("message", "Username and password should not be empty");
-            return "sign_up";
+            return processAction(model, "sign_up", "Username and password should not be empty");
         }
 
         if ("admin".equals(username)) {
-            model.addAttribute("message", "Username admin is reserved");
-            return "sign_up";
+            return processAction(model, "sign_up", "Username admin is reserved");
         }
 
-        if (usersDB.get(username) != null) {
-            model.addAttribute("message",
-                    String.format("Username %s is exist", username));
-            return "sign_up";
+        if (usersDB.isUsernameExist(username)) {
+            return processAction(model, "sign_up", String.format("Username %s is exist", username));
         }
 
-        usersDB.put(username, password);
+        usersDB.addUser(username, password);
 
-        model.addAttribute("message",
-                String.format("Username %s successfully signed up", username));
-        return "sign_in";
+        return processAction(model, "sign_in", String.format("Username %s successfully signed up", username));
     }
 
     @GetMapping("/audit")
     public String auditGet(Model model) {
-        JSONObject json = new JSONObject(audits.getAuditKnownUsers());
-        json.put("< UNKNOWN >", audits.getAuditUnkownUsers());
-        model.addAttribute("audits", json.toString());
+        model.addAttribute("audits", serializer.toString(audits));
         return "audits";
+    }
+
+    private String processAction(Model model, String page, String message) {
+        model.addAttribute("message", message);
+        return page;
+    }
+
+    private String processActionWithAudit(Model model, String username, Audits.Status status,
+                                          String page, String message) {
+        audits.logAudit(username, status);
+        model.addAttribute("message", message);
+        return page;
     }
 }

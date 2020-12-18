@@ -2,11 +2,13 @@ package edu.phystech.spring;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Audits {
     public enum Status {SUCCESS, WRONG_PASSWORD, UNKNOWN_USER}
-    private HashMap<String, ArrayList<Status>> usersLog = new HashMap<String, ArrayList<Status>>();
-    private ArrayList<Status> unknownLog = new ArrayList<Status>(); //for actions of unknown users
+    final private Map<String, ArrayList<Status>> usersLog = new HashMap<String, ArrayList<Status>>();
+    final private List<Status> unknownLog = new ArrayList<Status>(); //for actions of unknown users
 
     public void logAudit(String username, Status status) {
         if (username == null) {
@@ -20,18 +22,18 @@ public class Audits {
         }
     }
 
-    public ArrayList<Status> getAudit(String username) {
+    public List<Status> getAudit(String username) {
         if (username == null) {
             return unknownLog;
         }
         return usersLog.get(username);
     }
 
-    public HashMap<String, ArrayList<Status>> getAuditKnownUsers() {
+    public Map<String, ArrayList<Status>> getAuditKnownUsers() {
         return usersLog;
     }
 
-    public ArrayList<Status> getAuditUnkownUsers() {
+    public List<Status> getAuditUnkownUsers() {
         return unknownLog;
     }
 }
