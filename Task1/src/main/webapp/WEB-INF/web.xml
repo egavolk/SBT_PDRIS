@@ -4,6 +4,31 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          version="3.0">
 
+    <filter>
+        <filter-name>EmptyNullFilter</filter-name>
+        <filter-class>edu.phystech.task1.servlet.EmptyNullFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>EmptyNullFilter</filter-name>
+        <url-pattern>/sign_in</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>EmptyNullFilter</filter-name>
+        <url-pattern>/sign_up</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>AdminFilter</filter-name>
+        <filter-class>edu.phystech.task1.servlet.AdminFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <url-pattern>/sign_up</url-pattern>
+    </filter-mapping>
+
     <servlet>
         <servlet-name>SignInServlet</servlet-name>
         <servlet-class>edu.phystech.task1.servlet.SignInServlet</servlet-class>
