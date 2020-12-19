@@ -10,8 +10,5 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 @EnableJpaRepositories
 public class Config {
-    @Bean
-    RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
+
 }

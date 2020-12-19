@@ -7,6 +7,7 @@ import edu.phystech.pdris.hw.repo.WeatherRepo;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -28,9 +29,9 @@ public class WeatherServiceImpl implements WeatherService {
     private final RestTemplate restTemplate;
 
     @Autowired
-    public WeatherServiceImpl(WeatherRepo weatherRepo, RestTemplate restTemplate) {
+    public WeatherServiceImpl(WeatherRepo weatherRepo, RestTemplateBuilder builder) {
         this.weatherRepo = weatherRepo;
-        this.restTemplate = restTemplate;
+        this.restTemplate = builder.build();
     }
 
     @Override

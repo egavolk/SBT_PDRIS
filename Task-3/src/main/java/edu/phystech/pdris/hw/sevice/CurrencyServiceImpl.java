@@ -5,6 +5,7 @@ import edu.phystech.pdris.hw.Util;
 import edu.phystech.pdris.hw.model.Currency;
 import edu.phystech.pdris.hw.repo.CurrencyRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -26,9 +27,9 @@ public class CurrencyServiceImpl implements CurrencyService {
     private final RestTemplate restTemplate;
 
     @Autowired
-    public CurrencyServiceImpl(CurrencyRepo currencyRepo, RestTemplate restTemplate) {
+    public CurrencyServiceImpl(CurrencyRepo currencyRepo, RestTemplateBuilder builder) {
         this.currencyRepo = currencyRepo;
-        this.restTemplate = restTemplate;
+        this.restTemplate = builder.build();
     }
 
     @Override
