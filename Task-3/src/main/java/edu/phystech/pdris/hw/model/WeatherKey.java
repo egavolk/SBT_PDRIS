@@ -1,10 +1,13 @@
 package edu.phystech.pdris.hw.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class WeatherKey {
+public class WeatherKey implements Serializable {
     private String date;
     private String city;
+
+    public WeatherKey() {}
 
     public WeatherKey(String date, String city) {
         this.date = date;

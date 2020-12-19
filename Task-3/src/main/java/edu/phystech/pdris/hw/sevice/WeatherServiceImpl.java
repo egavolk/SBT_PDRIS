@@ -1,11 +1,11 @@
 package edu.phystech.pdris.hw.sevice;
 
 import edu.phystech.pdris.hw.Util;
-import edu.phystech.pdris.hw.model.Currency;
 import edu.phystech.pdris.hw.model.Weather;
 import edu.phystech.pdris.hw.model.WeatherKey;
-import edu.phystech.pdris.hw.storage.WeatherStorage;
+import edu.phystech.pdris.hw.repo.WeatherRepo;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -15,6 +15,7 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class WeatherServiceImpl implements WeatherService {
@@ -23,11 +24,12 @@ public class WeatherServiceImpl implements WeatherService {
     private final String DEFAULT_CITY = "Moscow";
     private static final String WEATHER_API_URL = "http://api.weatherapi.com/v1/history.json?dt=%s&q=%s&key=%s";
 
-    private final WeatherStorage weatherStorage;
+    private final WeatherRepo weatherRepo;
     private final RestTemplate restTemplate;
 
-    public WeatherServiceImpl(WeatherStorage weatherStorage, RestTemplate restTemplate) {
-        this.weatherStorage = weatherStorage;
+    @Autowired
+    public WeatherServiceImpl(WeatherRepo weatherRepo, RestTemplate restTemplate) {
+        this.weatherRepo = weatherRepo;
         this.restTemplate = restTemplate;
     }
 
@@ -58,8 +60,9 @@ public class WeatherServiceImpl implements WeatherService {
     private Weather getWeatherByDateAndCity(Instant date, String city) {
         String dateString = Util.getStringDateForPattern(date, "yyyy-MM-dd");
         WeatherKey weatherKey = new WeatherKey(dateString, city);
-        if (weatherStorage.isWeatherKeyExist(weatherKey)) {
-            return weatherStorage.getWeatherByKey(weatherKey);
+        Optional<Weather> findRes = weatherRepo.findById(weatherKey);
+        if (findRes.isPresent()) {
+            return findRes.get();
         }
 
         ResponseEntity<String> response = restTemplate.getForEntity(
@@ -67,7 +70,7 @@ public class WeatherServiceImpl implements WeatherService {
                 String.class);
 
         Weather weather = extractWeatherFromResponse(response);
-        weatherStorage.addWeather(weather);
+        weatherRepo.save(weather);
         return weather;
     }
 

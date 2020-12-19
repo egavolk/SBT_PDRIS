@@ -1,18 +1,19 @@
 package edu.phystech.pdris.hw.sevice;
 
+import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import edu.phystech.pdris.hw.Util;
 import edu.phystech.pdris.hw.model.Currency;
-import edu.phystech.pdris.hw.storage.CurrencyStorage;
+import edu.phystech.pdris.hw.repo.CurrencyRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.Instant;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CurrencyServiceImpl implements CurrencyService {
@@ -21,11 +22,12 @@ public class CurrencyServiceImpl implements CurrencyService {
     private static final String DOLLAR_VALUE_START = "<Value>";
     private static final String DOLLAR_VALUE_END = "</Value>";
 
-    private final CurrencyStorage currencyStorage;
+    private final CurrencyRepo currencyRepo;
     private final RestTemplate restTemplate;
 
-    public CurrencyServiceImpl(CurrencyStorage currencyStorage, RestTemplate restTemplate) {
-        this.currencyStorage = currencyStorage;
+    @Autowired
+    public CurrencyServiceImpl(CurrencyRepo currencyRepo, RestTemplate restTemplate) {
+        this.currencyRepo = currencyRepo;
         this.restTemplate = restTemplate;
     }
 
@@ -40,15 +42,16 @@ public class CurrencyServiceImpl implements CurrencyService {
 
     public Currency getDollarCurrencyByDate(Instant date) {
         String dateString = Util.getStringDateForPattern(date, "yyyy-MM-dd");
-        if (currencyStorage.isDateExist(dateString)) {
-            return currencyStorage.getCurrencyByDate(dateString);
+        Optional<Currency> findRes = currencyRepo.findById(dateString);
+        if (findRes.isPresent()) {
+            return findRes.get();
         }
 
         ResponseEntity<String> response = restTemplate.getForEntity(
                 CURRENCY_API_URL + Util.getStringDateForPattern(date, "dd/MM/yyyy"),
                 String.class);
         Currency currency = new Currency(dateString, extractDollarCurrencyValue(response));
-        currencyStorage.addCurrency(currency);
+        currencyRepo.save(currency);
         return currency;
     }
 

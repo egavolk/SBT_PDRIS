@@ -1,11 +1,22 @@
 package edu.phystech.pdris.hw.model;
 
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
+
+@Entity
+@IdClass(WeatherKey.class)
 public class Weather {
+    @Id
     private String date;
+    @Id
     private String city;
     private double avgTempC;
     private double maxWindKph;
     private String condition;
+
+    public Weather() {}
 
     public Weather(String date, String city, double avgTempC, double maxWindKph, String condition) {
         this.date = date;

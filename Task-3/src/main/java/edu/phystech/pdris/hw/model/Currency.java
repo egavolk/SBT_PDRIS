@@ -1,8 +1,15 @@
 package edu.phystech.pdris.hw.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Currency {
+    @Id
     private String date;
     private double dollar;
+
+    public Currency() {}
 
     public Currency(String date, double dollar) {
         this.date = date;
