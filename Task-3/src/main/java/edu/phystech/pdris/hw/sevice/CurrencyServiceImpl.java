@@ -3,6 +3,7 @@ package edu.phystech.pdris.hw.sevice;
 import edu.phystech.pdris.hw.Util;
 import edu.phystech.pdris.hw.model.Currency;
 import edu.phystech.pdris.hw.storage.CurrencyStorage;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -24,9 +25,9 @@ public class CurrencyServiceImpl implements CurrencyService {
     private final CurrencyStorage currencyStorage;
     private final RestTemplate restTemplate;
 
-    public CurrencyServiceImpl(CurrencyStorage currencyStorage, RestTemplate restTemplate) {
+    public CurrencyServiceImpl(CurrencyStorage currencyStorage, RestTemplateBuilder builder) {
         this.currencyStorage = currencyStorage;
-        this.restTemplate = restTemplate;
+        this.restTemplate = builder.build();
     }
 
     @Override

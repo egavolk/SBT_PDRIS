@@ -21,9 +21,4 @@ public class Config {
     WeatherStorage weatherStorage() {
         return new WeatherStorage();
     }
-
-    @Bean
-    RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
 }
