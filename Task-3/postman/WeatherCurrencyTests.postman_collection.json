@@ -1,0 +1,375 @@
+{
+	"info": {
+		"_postman_id": "2a32fa75-b3aa-4797-a955-14870f8f351e",
+		"name": "WeatherCurrencyTests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Currency simple",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"currency_simple_days_count\", function() {",
+							"    var data = pm.response.json();",
+							"    pm.expect(data).to.length(1);",
+							"})",
+							"",
+							"pm.test(\"currency_simple_greater_60\", function() {",
+							"    var data = pm.response.json();",
+							"    pm.expect(data[0].dollar).to.greaterThan(60);",
+							"})",
+							"",
+							"pm.test(\"currency_simple_less_90\", function() {",
+							"    var data = pm.response.json();",
+							"    pm.expect(data[0].dollar).to.lessThan(90);",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/currency",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"currency"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Currency 5 days",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"currency_5_days_days_count\", function() {",
+							"    var data = pm.response.json();",
+							"    pm.expect(data).to.length(5);",
+							"})",
+							"",
+							"pm.test(\"currency_5_days_greater_60\", function() {",
+							"    var data = pm.response.json();",
+							"    for (var i = 0; i < 5; ++i)",
+							"        pm.expect(data[i].dollar).to.greaterThan(60);",
+							"})",
+							"",
+							"pm.test(\"currency_5_days_less_90\", function() {",
+							"    var data = pm.response.json();",
+							"    for (var i = 0; i < 5; ++i)",
+							"        pm.expect(data[i].dollar).to.lessThan(90);",
+							"})",
+							"",
+							"pm.test(\"currency_5_days_different\", function() {",
+							"    var data = pm.response.json();",
+							"    var s = new Set();",
+							"    for (var i = 0; i < 5; ++i)",
+							"        s.add(data[i].dollar);",
+							"    pm.expect(s.size).to.not.eq(1);",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/currency?days=5",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"currency"
+					],
+					"query": [
+						{
+							"key": "days",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Weather simple",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"weather_simple_days_count\", function() {",
+							"    var data = pm.response.json();",
+							"    pm.expect(data).to.length(1);",
+							"})",
+							"",
+							"pm.test(\"weather_simple_city\", function() {",
+							"    var data = pm.response.json();",
+							"    pm.expect(data[0].city).to.eq(\"Moscow\");",
+							"})",
+							"",
+							"pm.test(\"weather_simple_date\", function() {",
+							"    var date = new Date();",
+							"    var data = pm.response.json();",
+							"    pm.expect(data[0].date).to.eq(date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate());",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/weather",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"weather"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Weather 5 days",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"weather_5_days_days_count\", function() {",
+							"    var data = pm.response.json();",
+							"    pm.expect(data).to.length(5);",
+							"})",
+							"",
+							"pm.test(\"weather_5_days_city\", function() {",
+							"    var data = pm.response.json();",
+							"    for (var i = 0; i < 5; ++i)",
+							"        pm.expect(data[i].city).to.eq(\"Moscow\");",
+							"})",
+							"",
+							"pm.test(\"weather_5_days_date\", function() {",
+							"    var date = new Date();",
+							"    var data = pm.response.json();",
+							"    for (var i = 0; i < 5; ++i) {",
+							"        pm.expect(data[i].date).to.eq(date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate());",
+							"        date.setDate(date.getDate() - 1);",
+							"    }",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/weather?days=5",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"weather"
+					],
+					"query": [
+						{
+							"key": "days",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Weather 5 days Vologda",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"weather_5_days_Vologda_days_count\", function() {",
+							"    var data = pm.response.json();",
+							"    pm.expect(data).to.length(5);",
+							"})",
+							"",
+							"pm.test(\"weather_5_days_Vologda_city\", function() {",
+							"    var data = pm.response.json();",
+							"    for (var i = 0; i < 5; ++i)",
+							"        pm.expect(data[i].city).to.eq(\"Vologda\");",
+							"})",
+							"",
+							"pm.test(\"weather_5_days_Vologda_date\", function() {",
+							"    var date = new Date();",
+							"    var data = pm.response.json();",
+							"    for (var i = 0; i < 5; ++i) {",
+							"        pm.expect(data[i].date).to.eq(date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate());",
+							"        date.setDate(date.getDate() - 1);",
+							"    }",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/weather?days=5&city=Vologda",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"weather"
+					],
+					"query": [
+						{
+							"key": "days",
+							"value": "5"
+						},
+						{
+							"key": "city",
+							"value": "Vologda"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Weather Vologda",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"weather_Vologda_days_count\", function() {",
+							"    var data = pm.response.json();",
+							"    pm.expect(data).to.length(1);",
+							"})",
+							"",
+							"pm.test(\"weather_Vologda_city\", function() {",
+							"    var data = pm.response.json();",
+							"    pm.expect(data[0].city).to.eq(\"Vologda\");",
+							"})",
+							"",
+							"pm.test(\"weather_Vologda_date\", function() {",
+							"    var date = new Date();",
+							"    var data = pm.response.json();",
+							"    pm.expect(data[0].date).to.eq(date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate());",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/weather?city=Vologda",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"weather"
+					],
+					"query": [
+						{
+							"key": "city",
+							"value": "Vologda"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Predict",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"predict_greater_60\", function() {",
+							"    var data = pm.response.json();",
+							"    pm.expect(data.dollar).to.greaterThan(60);",
+							"})",
+							"",
+							"pm.test(\"predict_less_90\", function() {",
+							"    var data = pm.response.json();",
+							"    pm.expect(data.dollar).to.lessThan(90);",
+							"})",
+							"",
+							"pm.test(\"prdict_date\", function() {",
+							"    var date = new Date();",
+							"    date.setDate(date.getDate() + 1);",
+							"    var data = pm.response.json();",
+							"    pm.expect(data.date).to.eq(date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate());",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/predict",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"predict"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });"
+				]
+			}
+		}
+	]
+}
