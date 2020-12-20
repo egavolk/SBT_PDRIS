@@ -1,17 +1,11 @@
 package edu.phystech.pdris.hw.sevice;
 
-import edu.phystech.pdris.hw.Config;
 import edu.phystech.pdris.hw.model.Weather;
-import edu.phystech.pdris.hw.repo.WeatherRepo;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
