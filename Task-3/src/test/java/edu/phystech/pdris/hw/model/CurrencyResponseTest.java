@@ -3,7 +3,6 @@ package edu.phystech.pdris.hw.model;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 
 import java.util.NoSuchElementException;
 
@@ -38,7 +37,6 @@ class CurrencyResponseTest {
     @Test
     void getCurrencyNotFound() throws JsonProcessingException {
         String date = "10.10.2020";
-        double dollar = 30.0;
         double euro = 35.0;
 
         String xml =

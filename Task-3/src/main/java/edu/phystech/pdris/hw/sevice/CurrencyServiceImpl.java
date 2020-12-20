@@ -1,6 +1,5 @@
 package edu.phystech.pdris.hw.sevice;
 
-import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import edu.phystech.pdris.hw.Util;
 import edu.phystech.pdris.hw.model.Currency;
 import edu.phystech.pdris.hw.model.CurrencyResponse;
@@ -20,9 +19,6 @@ import java.util.Optional;
 @Service
 public class CurrencyServiceImpl implements CurrencyService {
     private static final String CURRENCY_API_URL = "http://www.cbr.ru/scripts/XML_daily.asp?date_req=";
-    private static final String DOLLAR_BLOCK_START = "<Valute ID=\"R01235\">";
-    private static final String DOLLAR_VALUE_START = "<Value>";
-    private static final String DOLLAR_VALUE_END = "</Value>";
 
     private final CurrencyRepo currencyRepo;
     private final RestTemplate restTemplate;

@@ -1,8 +1,6 @@
 package edu.phystech.pdris.hw.controller;
 
-import edu.phystech.pdris.hw.model.Currency;
 import edu.phystech.pdris.hw.model.Weather;
-import edu.phystech.pdris.hw.sevice.CurrencyService;
 import edu.phystech.pdris.hw.sevice.WeatherService;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
