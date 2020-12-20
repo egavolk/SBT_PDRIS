@@ -38,7 +38,7 @@ public class CurrencyServiceImpl implements CurrencyService {
         return values;
     }
 
-    public Currency getDollarCurrencyByDate(Instant date) {
+    private Currency getDollarCurrencyByDate(Instant date) {
         String dateString = Util.getStringDateForPattern(date, "yyyy-MM-dd");
         Optional<Currency> findRes = currencyRepo.findById(dateString);
         if (findRes.isPresent()) {
