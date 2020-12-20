@@ -2,6 +2,7 @@ package edu.phystech.pdris.hw.sevice;
 
 import edu.phystech.pdris.hw.Util;
 import edu.phystech.pdris.hw.model.Currency;
+import edu.phystech.pdris.hw.model.CurrencyResponse;
 import edu.phystech.pdris.hw.storage.CurrencyStorage;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.ResponseEntity;
@@ -45,21 +46,11 @@ public class CurrencyServiceImpl implements CurrencyService {
             return currencyStorage.getCurrencyByDate(dateString);
         }
 
-        ResponseEntity<String> response = restTemplate.getForEntity(
+        ResponseEntity<CurrencyResponse> response = restTemplate.getForEntity(
                 CURRENCY_API_URL + Util.getStringDateForPattern(date, "dd/MM/yyyy"),
-                String.class);
-        Currency currency = new Currency(dateString, extractDollarCurrencyValue(response));
+                CurrencyResponse.class);
+        Currency currency = response.getBody().getCurrency();
         currencyStorage.addCurrency(currency);
         return currency;
-    }
-
-    private double extractDollarCurrencyValue(ResponseEntity<String> response) {
-        String body = response.getBody();
-        int dollarBlockStartIndex = body.indexOf(DOLLAR_BLOCK_START);
-        int dollarValueStartIndex = body.indexOf(DOLLAR_VALUE_START, dollarBlockStartIndex);
-        int dollarValueEndIndex = body.indexOf(DOLLAR_VALUE_END, dollarValueStartIndex);
-        String res = body.substring(dollarValueStartIndex + DOLLAR_VALUE_START.length(),
-                dollarValueEndIndex);
-        return Double.parseDouble(res.replace(',', '.'));
     }
 }

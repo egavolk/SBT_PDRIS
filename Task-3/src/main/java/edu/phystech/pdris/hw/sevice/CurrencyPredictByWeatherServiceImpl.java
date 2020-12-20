@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.apache.commons.math3.stat.regression.SimpleRegression;
 
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Service
@@ -31,6 +32,6 @@ public class CurrencyPredictByWeatherServiceImpl implements CurrencyPredictByWea
         }
 
         double dollar = regression.predict(weatherService.getTomorrowWeather().getAvgTempC());
-        return new Currency(Util.getStringDateForPattern(Instant.now(), "yyyy-MM-dd"), dollar);
+        return new Currency(Util.getStringDateForPattern(Instant.now().plus(1, ChronoUnit.DAYS), "yyyy-MM-dd"), dollar);
     }
 }

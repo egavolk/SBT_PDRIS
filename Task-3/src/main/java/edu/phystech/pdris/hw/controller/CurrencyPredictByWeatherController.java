@@ -2,6 +2,7 @@ package edu.phystech.pdris.hw.controller;
 
 import edu.phystech.pdris.hw.model.Currency;
 import edu.phystech.pdris.hw.sevice.CurrencyPredictByWeatherService;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +17,7 @@ public class CurrencyPredictByWeatherController {
         this.predictService = predictService;
     }
 
-    @GetMapping("/predict")
+    @GetMapping(value = "/predict", produces = MediaType.APPLICATION_JSON_VALUE)
     public Currency getDollarCurrencyLastDays(@RequestParam(required = false, defaultValue = "1") Integer days) {
         return predictService.predict();
     }
