@@ -43,5 +43,8 @@ class WeatherTest {
         assertEquals(avgTempC, weather.getAvgTempC());
         assertEquals(maxWindKph, weather.getMaxWindKph());
         assertEquals(condition, weather.getCondition());
+
+        WeatherKey key = new WeatherKey(date, city);
+        assertEquals(key, weather.weatherKey());
     }
 }

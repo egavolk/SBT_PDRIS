@@ -3,9 +3,11 @@ package edu.phystech.pdris.hw.model;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @JacksonXmlRootElement(localName = "ValCurs")
 public class CurrencyResponse {
@@ -34,6 +36,6 @@ public class CurrencyResponse {
                 return new Currency(date, Double.parseDouble(v.dollar.replace(',', '.')));
             }
         }
-        throw new RuntimeException("Dollar curs not found");
+        throw new NoSuchElementException("Could not find dollar curs");
     }
 }
