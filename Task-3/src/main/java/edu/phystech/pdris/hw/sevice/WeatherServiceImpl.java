@@ -3,6 +3,7 @@ package edu.phystech.pdris.hw.sevice;
 import edu.phystech.pdris.hw.Util;
 import edu.phystech.pdris.hw.model.Weather;
 import edu.phystech.pdris.hw.model.WeatherKey;
+import edu.phystech.pdris.hw.model.WeatherResponse;
 import edu.phystech.pdris.hw.repo.WeatherRepo;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,26 +67,12 @@ public class WeatherServiceImpl implements WeatherService {
             return findRes.get();
         }
 
-        ResponseEntity<String> response = restTemplate.getForEntity(
+        ResponseEntity<WeatherResponse> response = restTemplate.getForEntity(
                 String.format(WEATHER_API_URL, dateString, city, weatherAPIKey),
-                String.class);
+                WeatherResponse.class);
 
-        Weather weather = extractWeatherFromResponse(response);
+        Weather weather = response.getBody().getWeather();
         weatherRepo.save(weather);
         return weather;
-    }
-
-    private Weather extractWeatherFromResponse(ResponseEntity<String> response) {
-        JSONObject jsonResponse = new JSONObject(response.getBody());
-        String city = jsonResponse.getJSONObject("location").getString("name");
-        JSONObject forecast = jsonResponse.getJSONObject("forecast")
-                                          .getJSONArray("forecastday")
-                                          .getJSONObject(0);
-        String date = forecast.getString("date");
-        JSONObject forecastDay = forecast.getJSONObject("day");
-        double avgTempC = forecastDay.getDouble("avgtemp_c");
-        double maxWindKph = forecastDay.getDouble("maxwind_kph");
-        String condition = forecastDay.getJSONObject("condition").getString("text");
-        return new Weather(date, city, avgTempC, maxWindKph, condition);
     }
 }
