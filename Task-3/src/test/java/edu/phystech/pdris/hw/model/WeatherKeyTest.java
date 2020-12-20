@@ -39,10 +39,6 @@ class WeatherKeyTest {
         assertNotEquals(null, key1);
         assertNotEquals(key1, null);
 
-        key1.setDate(null);
-        assertNotEquals(key1, key2);
-        assertNotEquals(key2, key1);
-
         key1.setDate(newDate);
         assertNotEquals(key1, key2);
         assertNotEquals(key2, key1);
