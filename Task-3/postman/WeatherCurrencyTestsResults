@@ -1,0 +1,73 @@
+newman
+
+WeatherCurrencyTests
+
+→ Currency simple
+  GET localhost:8080/currency [200 OK, 204B, 82ms]
+  ✓  Status code is 200
+  ✓  currency_simple_days_count
+  ✓  currency_simple_greater_60
+  ✓  currency_simple_less_90
+
+→ Currency 5 days
+  GET localhost:8080/currency?days=5 [200 OK, 360B, 94ms]
+  ✓  Status code is 200
+  ✓  currency_5_days_days_count
+  ✓  currency_5_days_greater_60
+  ✓  currency_5_days_less_90
+  ✓  currency_5_days_different
+
+→ Weather simple
+  GET localhost:8080/weather [200 OK, 265B, 6ms]
+  ✓  Status code is 200
+  ✓  weather_simple_days_count
+  ✓  weather_simple_city
+  ✓  weather_simple_date
+
+→ Weather 5 days
+  GET localhost:8080/weather?days=5 [200 OK, 646B, 8ms]
+  ✓  Status code is 200
+  ✓  weather_5_days_days_count
+  ✓  weather_5_days_city
+  ✓  weather_5_days_date
+
+→ Weather 5 days Vologda
+  GET localhost:8080/weather?days=5&city=Vologda [200 OK, 659B, 8ms]
+  ✓  Status code is 200
+  ✓  weather_5_days_Vologda_days_count
+  ✓  weather_5_days_Vologda_city
+  ✓  weather_5_days_Vologda_date
+
+→ Weather Vologda
+  GET localhost:8080/weather?city=Vologda [200 OK, 263B, 5ms]
+  ✓  Status code is 200
+  ✓  weather_Vologda_days_count
+  ✓  weather_Vologda_city
+  ✓  weather_Vologda_date
+
+→ Predict
+  GET localhost:8080/predict [200 OK, 212B, 112ms]
+  ✓  Status code is 200
+  ✓  predict_greater_60
+  ✓  predict_less_90
+  ✓  prdict_date
+
+┌─────────────────────────┬───────────────────┬──────────────────┐
+│                         │          executed │           failed │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│              iterations │                 1 │                0 │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│                requests │                 7 │                0 │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│            test-scripts │                14 │                0 │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│      prerequest-scripts │                 7 │                0 │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│              assertions │                29 │                0 │
+├─────────────────────────┴───────────────────┴──────────────────┤
+│ total run duration: 534ms                                      │
+├────────────────────────────────────────────────────────────────┤
+│ total data received: 1.43KB (approx)                           │
+├────────────────────────────────────────────────────────────────┤
+│ average response time: 45ms [min: 5ms, max: 112ms, s.d.: 44ms] │
+└────────────────────────────────────────────────────────────────┘
