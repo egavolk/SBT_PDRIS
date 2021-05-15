@@ -54,6 +54,6 @@ public class WeatherResponse {
                 forecast.forecastDay.get(0).day.avgTempC,
                 forecast.forecastDay.get(0).day.maxWindKph,
                 forecast.forecastDay.get(0).day.condition.text
-                );
+        );
     }
 }

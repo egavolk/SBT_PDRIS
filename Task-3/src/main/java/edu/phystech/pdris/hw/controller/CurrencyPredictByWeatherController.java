@@ -17,7 +17,7 @@ public class CurrencyPredictByWeatherController {
         this.predictService = predictService;
     }
 
-    @GetMapping(value = "/predict", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/predict", produces =  MediaType.APPLICATION_JSON_VALUE)
     public Currency getDollarCurrencyLastDays(@RequestParam(required = false, defaultValue = "1") Integer days) {
         return predictService.predict();
     }
