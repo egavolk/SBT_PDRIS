@@ -5,7 +5,6 @@ import edu.phystech.pdris.hw.model.Weather;
 import edu.phystech.pdris.hw.model.WeatherKey;
 import edu.phystech.pdris.hw.model.WeatherResponse;
 import edu.phystech.pdris.hw.repo.WeatherRepo;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -23,7 +22,7 @@ import java.util.Optional;
 public class WeatherServiceImpl implements WeatherService {
     @Value("${weather.api.key}")
     private String weatherAPIKey;
-    private final String DEFAULT_CITY = "Moscow";
+    private static final String DEFAULT_CITY = "Moscow";
     private static final String WEATHER_API_URL = "http://api.weatherapi.com/v1/history.json?dt=%s&q=%s&key=%s";
 
     private final WeatherRepo weatherRepo;

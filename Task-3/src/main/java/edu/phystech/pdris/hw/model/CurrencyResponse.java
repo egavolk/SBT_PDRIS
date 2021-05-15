@@ -6,6 +6,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @JacksonXmlRootElement(localName = "ValCurs")
 public class CurrencyResponse {
@@ -34,6 +35,6 @@ public class CurrencyResponse {
                 return new Currency(date, Double.parseDouble(v.dollar.replace(',', '.')));
             }
         }
-        throw new RuntimeException("Dollar curs not found");
+        throw new NoSuchElementException("Could not find dollar curs");
     }
 }
