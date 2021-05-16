@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "2a32fa75-b3aa-4797-a955-14870f8f351e",
+		"_postman_id": "35099f5f-703b-4c90-9240-a9a8bb6674ac",
 		"name": "WeatherCurrencyTests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -125,7 +125,8 @@
 							"pm.test(\"weather_simple_date\", function() {",
 							"    var date = new Date();",
 							"    var data = pm.response.json();",
-							"    pm.expect(data[0].date).to.eq(date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate());",
+							"    pm.expect(data[0].date).to.eq(date.getFullYear() + '-' + (date.getMonth() + 1 < 10 ? '0' : '') + (date.getMonth() + 1) + '-' + ",
+							"                                                             (date.getDate() < 10 ? '0' : '') + date.getDate());",
 							"})"
 						],
 						"type": "text/javascript"
@@ -136,11 +137,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/weather",
+					"raw": "localhost:8081/weather",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8081",
 					"path": [
 						"weather"
 					]
@@ -170,7 +171,8 @@
 							"    var date = new Date();",
 							"    var data = pm.response.json();",
 							"    for (var i = 0; i < 5; ++i) {",
-							"        pm.expect(data[i].date).to.eq(date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate());",
+							"        pm.expect(data[i].date).to.eq(date.getFullYear() + '-' + (date.getMonth() + 1 < 10 ? '0' : '') + (date.getMonth() + 1) + '-' + ",
+							"                                                                 (date.getDate() < 10 ? '0' : '') + date.getDate());",
 							"        date.setDate(date.getDate() - 1);",
 							"    }",
 							"})"
@@ -183,11 +185,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/weather?days=5",
+					"raw": "localhost:8081/weather?days=5",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8081",
 					"path": [
 						"weather"
 					],
@@ -223,7 +225,8 @@
 							"    var date = new Date();",
 							"    var data = pm.response.json();",
 							"    for (var i = 0; i < 5; ++i) {",
-							"        pm.expect(data[i].date).to.eq(date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate());",
+							"        pm.expect(data[i].date).to.eq(date.getFullYear() + '-' + (date.getMonth() + 1 < 10 ? '0' : '') + (date.getMonth() + 1) + '-' + ",
+							"                                                                 (date.getDate() < 10 ? '0' : '') + date.getDate());",
 							"        date.setDate(date.getDate() - 1);",
 							"    }",
 							"})"
@@ -236,11 +239,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/weather?days=5&city=Vologda",
+					"raw": "localhost:8081/weather?days=5&city=Vologda",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8081",
 					"path": [
 						"weather"
 					],
@@ -278,7 +281,8 @@
 							"pm.test(\"weather_Vologda_date\", function() {",
 							"    var date = new Date();",
 							"    var data = pm.response.json();",
-							"    pm.expect(data[0].date).to.eq(date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate());",
+							"    pm.expect(data[0].date).to.eq(date.getFullYear() + '-' + (date.getMonth() + 1 < 10 ? '0' : '') + (date.getMonth() + 1) + '-' + ",
+							"                                                             (date.getDate() < 10 ? '0' : '') + date.getDate());",
 							"})"
 						],
 						"type": "text/javascript"
@@ -289,11 +293,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/weather?city=Vologda",
+					"raw": "localhost:8081/weather?city=Vologda",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8081",
 					"path": [
 						"weather"
 					],
@@ -328,7 +332,8 @@
 							"    var date = new Date();",
 							"    date.setDate(date.getDate() + 1);",
 							"    var data = pm.response.json();",
-							"    pm.expect(data.date).to.eq(date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate());",
+							"    pm.expect(data.date).to.eq(date.getFullYear() + '-' + (date.getMonth() + 1 < 10 ? '0' : '') + (date.getMonth() + 1) + '-' + ",
+							"                                                          (date.getDate() < 10 ? '0' : '') + date.getDate());",
 							"})"
 						],
 						"type": "text/javascript"
@@ -339,11 +344,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/predict",
+					"raw": "localhost:8082/predict",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8082",
 					"path": [
 						"predict"
 					]
