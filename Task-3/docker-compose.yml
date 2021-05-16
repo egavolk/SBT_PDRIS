@@ -1,6 +1,11 @@
 version: "3.8"
 
 services:
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
   eureka:
     build: ./eureka
     ports:
@@ -10,6 +15,7 @@ services:
     build: ./currency
     depends_on:
       - eureka
+      - db
 
     ports:
       - 8080:8080
@@ -21,6 +27,7 @@ services:
     build: ./weather
     depends_on:
       - eureka
+      - db
 
     ports:
       - 8081:8081
