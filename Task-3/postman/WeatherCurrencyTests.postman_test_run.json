@@ -1,0 +1,367 @@
+{
+	"id": "19dbfd84-f289-48c8-9563-b626a73382ad",
+	"name": "WeatherCurrencyTests",
+	"timestamp": "2021-05-16T11:20:53.239Z",
+	"collection_id": "35099f5f-703b-4c90-9240-a9a8bb6674ac",
+	"folder_id": 0,
+	"environment_id": "0",
+	"totalPass": 29,
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "10e1bddb-58e3-4f68-b4e6-a33a0a915f7a",
+			"name": "Currency simple",
+			"url": "http://localhost:8080/currency",
+			"time": 29,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"currency_simple_days_count": true,
+				"currency_simple_greater_60": true,
+				"currency_simple_less_90": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"currency_simple_days_count": {
+					"pass": 1,
+					"fail": 0
+				},
+				"currency_simple_greater_60": {
+					"pass": 1,
+					"fail": 0
+				},
+				"currency_simple_less_90": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				29
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"currency_simple_days_count": true,
+					"currency_simple_greater_60": true,
+					"currency_simple_less_90": true
+				}
+			]
+		},
+		{
+			"id": "c0f469f1-17b1-4df3-953d-3cb1ff32edb6",
+			"name": "Currency 5 days",
+			"url": "http://localhost:8080/currency?days=5",
+			"time": 143,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"currency_5_days_days_count": true,
+				"currency_5_days_greater_60": true,
+				"currency_5_days_less_90": true,
+				"currency_5_days_different": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"currency_5_days_days_count": {
+					"pass": 1,
+					"fail": 0
+				},
+				"currency_5_days_greater_60": {
+					"pass": 1,
+					"fail": 0
+				},
+				"currency_5_days_less_90": {
+					"pass": 1,
+					"fail": 0
+				},
+				"currency_5_days_different": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				143
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"currency_5_days_days_count": true,
+					"currency_5_days_greater_60": true,
+					"currency_5_days_less_90": true,
+					"currency_5_days_different": true
+				}
+			]
+		},
+		{
+			"id": "09f9cc0c-92a8-427d-89d9-497c214eba24",
+			"name": "Weather simple",
+			"url": "http://localhost:8081/weather",
+			"time": 8,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"weather_simple_days_count": true,
+				"weather_simple_city": true,
+				"weather_simple_date": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"weather_simple_days_count": {
+					"pass": 1,
+					"fail": 0
+				},
+				"weather_simple_city": {
+					"pass": 1,
+					"fail": 0
+				},
+				"weather_simple_date": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				8
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"weather_simple_days_count": true,
+					"weather_simple_city": true,
+					"weather_simple_date": true
+				}
+			]
+		},
+		{
+			"id": "6f96bca9-b5b8-4078-87eb-dbcef1876f19",
+			"name": "Weather 5 days",
+			"url": "http://localhost:8081/weather?days=5",
+			"time": 12,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"weather_5_days_days_count": true,
+				"weather_5_days_city": true,
+				"weather_5_days_date": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"weather_5_days_days_count": {
+					"pass": 1,
+					"fail": 0
+				},
+				"weather_5_days_city": {
+					"pass": 1,
+					"fail": 0
+				},
+				"weather_5_days_date": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				12
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"weather_5_days_days_count": true,
+					"weather_5_days_city": true,
+					"weather_5_days_date": true
+				}
+			]
+		},
+		{
+			"id": "485feb3e-94d5-4ae2-9c33-5e8b3605c2fb",
+			"name": "Weather 5 days Vologda",
+			"url": "http://localhost:8081/weather?days=5&city=Vologda",
+			"time": 14,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"weather_5_days_Vologda_days_count": true,
+				"weather_5_days_Vologda_city": true,
+				"weather_5_days_Vologda_date": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"weather_5_days_Vologda_days_count": {
+					"pass": 1,
+					"fail": 0
+				},
+				"weather_5_days_Vologda_city": {
+					"pass": 1,
+					"fail": 0
+				},
+				"weather_5_days_Vologda_date": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				14
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"weather_5_days_Vologda_days_count": true,
+					"weather_5_days_Vologda_city": true,
+					"weather_5_days_Vologda_date": true
+				}
+			]
+		},
+		{
+			"id": "674b8f3d-72ad-4683-8d0c-f38357639607",
+			"name": "Weather Vologda",
+			"url": "http://localhost:8081/weather?city=Vologda",
+			"time": 9,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"weather_Vologda_days_count": true,
+				"weather_Vologda_city": true,
+				"weather_Vologda_date": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"weather_Vologda_days_count": {
+					"pass": 1,
+					"fail": 0
+				},
+				"weather_Vologda_city": {
+					"pass": 1,
+					"fail": 0
+				},
+				"weather_Vologda_date": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				9
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"weather_Vologda_days_count": true,
+					"weather_Vologda_city": true,
+					"weather_Vologda_date": true
+				}
+			]
+		},
+		{
+			"id": "17392313-fbee-4f93-8b2d-f71612bce927",
+			"name": "Predict",
+			"url": "http://localhost:8082/predict",
+			"time": 196,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"predict_greater_60": true,
+				"predict_less_90": true,
+				"prdict_date": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"predict_greater_60": {
+					"pass": 1,
+					"fail": 0
+				},
+				"predict_less_90": {
+					"pass": 1,
+					"fail": 0
+				},
+				"prdict_date": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				196
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"predict_greater_60": true,
+					"predict_less_90": true,
+					"prdict_date": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 411,
+	"collection": {
+		"requests": [
+			{
+				"id": "10e1bddb-58e3-4f68-b4e6-a33a0a915f7a",
+				"method": "GET"
+			},
+			{
+				"id": "c0f469f1-17b1-4df3-953d-3cb1ff32edb6",
+				"method": "GET"
+			},
+			{
+				"id": "09f9cc0c-92a8-427d-89d9-497c214eba24",
+				"method": "GET"
+			},
+			{
+				"id": "6f96bca9-b5b8-4078-87eb-dbcef1876f19",
+				"method": "GET"
+			},
+			{
+				"id": "485feb3e-94d5-4ae2-9c33-5e8b3605c2fb",
+				"method": "GET"
+			},
+			{
+				"id": "674b8f3d-72ad-4683-8d0c-f38357639607",
+				"method": "GET"
+			},
+			{
+				"id": "17392313-fbee-4f93-8b2d-f71612bce927",
+				"method": "GET"
+			}
+		]
+	}
+}
