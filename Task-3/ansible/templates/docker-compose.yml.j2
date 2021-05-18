@@ -1,50 +1,40 @@
 version: "3.8"
 
 services:
-  db:
-    image: postgres
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
   eureka:
-    build: ./eureka
+    image: eureka
     ports:
       - 8761:8761
 
   currency:
-    build: ./currency
+    image: currency
     depends_on:
       - eureka
-      - db
-
     ports:
       - 8080:8080
     environment:
       - JAVA_OPTS=
-        -DPOSTGRES_SERVER=jdbc:postgresql://db:5432/postgres
         -DEUREKA_SERVER=http://eureka:8761/eureka
+        -DPOSTGRES_SERVER='jdbc:postgresql://{{ dbserver_host }}/postgres'
 
   weather:
-    build: ./weather
+    image: weather
     depends_on:
       - eureka
-      - db
-
     ports:
       - 8081:8081
     environment:
       - JAVA_OPTS=
-        -DPOSTGRES_SERVER=jdbc:postgresql://db:5432/postgres
         -DEUREKA_SERVER=http://eureka:8761/eureka
+        -DPOSTGRES_SERVER='jdbc:postgresql://{{ dbserver_host }}/postgres'
 
   predict:
-    build: ./predict
+    image: predict
     depends_on:
       - currency
       - weather
-      - eureka
     ports:
       - 8082:8082
     environment:
       - JAVA_OPTS=
-        -DEUREKA_SERVER=http://eureka:8761/eureka
+          -DEUREKA_SERVER=http://eureka:8761/eureka
