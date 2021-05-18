@@ -1,18 +1,19 @@
 package edu.phystech.pdris.weather.model;
 
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "weather")
 @IdClass(WeatherKey.class)
 public class Weather {
     @Id
     private String date;
     @Id
     private String city;
+    @Column(name = "avg_temp_c")
     private double avgTempC;
+    @Column(name = "max_wind_kph")
     private double maxWindKph;
     private String condition;
 
