@@ -4,8 +4,10 @@ package edu.phystech.pdris.weather.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "weather")
 @IdClass(WeatherKey.class)
 public class Weather {
     @Id

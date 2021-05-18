@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS currency (
+    date VARCHAR (255) NOT NULL,
+    dollar FLOAT8 NOT NULL,
+    PRIMARY KEY(date)
+);
