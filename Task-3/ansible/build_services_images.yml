@@ -1,0 +1,45 @@
+---
+- name: Docker images build
+  hosts: Ubuntu
+  become: true
+  gather_facts: yes
+  tasks:
+    - name: Copy services files
+      copy:
+        src: "{{ item.src }}"
+        dest: '/edu/volkovep/'
+      loop:
+        - { src: '../eureka' }
+        - { src: '../predict' }
+        - { src: '../currency' }
+        - { src: '../weather' }
+        - { src: '../common' }
+        - { src: '../pom.xml' }
+
+    - name: Install maven
+      apt:
+        name: maven
+
+    - name: Running mvn clean package
+      shell: "mvn clean package -f /edu/volkovep"
+
+    - name: Create images dir
+      ansible.builtin.file:
+        path: /edu/volkovep/images
+        state: directory
+
+    - name: Build images
+      docker_image:
+        build:
+          path: "{{ item.path }}"
+        name: "{{ item.name }}"
+        tag: latest
+        source: build
+        archive_path: "{{ item.tar }}"
+      loop:
+        - { path: '/edu/volkovep/eureka', name: 'eureka', tar: '/edu/volkovep/images/eureka.tar' }
+        - { path: '/edu/volkovep/weather', name: 'weather', tar: '/edu/volkovep/images/weather.tar' }
+        - { path: '/edu/volkovep/currency', name: 'currency', tar: '/edu/volkovep/images/currency.tar' }
+        - { path: '/edu/volkovep/predict', name: 'predict', tar: '/edu/volkovep/images/predict.tar' }
+
+

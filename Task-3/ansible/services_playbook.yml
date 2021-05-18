@@ -1,0 +1,34 @@
+---
+- name: Deploy services
+  hosts: Ubuntu
+  tasks:
+
+    - name: Process and copy compose file template
+      template:
+        src: "templates/docker-compose.yml.j2"
+        dest: "/edu/volkovep/docker-compose.yml"
+
+    - name: Load docker images
+      docker_image:
+        name: "{{ item.image_name }}"
+        tag: latest
+        load_path: "{{ item.load_path }}"
+        source: load
+      loop:
+        - { image_name: 'eureka', load_path: '/edu/volkovep/images/eureka.tar' }
+        - { image_name: 'weather', load_path: '/edu/volkovep/images/weather.tar' }
+        - { image_name: 'currency', load_path: '/edu/volkovep/images/currency.tar' }
+        - { image_name: 'predict', load_path: '/edu/volkovep/images/predict.tar' }
+
+    - name: Tear down existing services
+      docker_compose:
+        project_src: "/edu/volkovep/"
+        state: absent
+
+    - name: Create and start services
+      docker_compose:
+        project_src: "/edu/volkovep/"
+      register: output
+
+    - debug:
+        var: output

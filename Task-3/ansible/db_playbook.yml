@@ -1,0 +1,15 @@
+---
+- name: Deploy DB
+  hosts: CentOS
+  tasks:
+    - name: Upload docker-compose for Postgres
+      copy:
+        src: docker-compose-db.yml
+        dest: /edu/volkovep/
+
+    - name: Run postgres
+      docker_compose:
+        project_src: /edu/volkovep/
+        files:
+          - docker-compose-db.yml
+        state: present
