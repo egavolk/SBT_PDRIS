@@ -21,7 +21,7 @@ services:
       - 8080:8080
     environment:
       - JAVA_OPTS=
-        -DPOSTGRES_SERVER=jdbc:postgresql://194.87.111.112:5432/postgres
+        -DPOSTGRES_SERVER=jdbc:postgresql://db:5432/postgres
         -DEUREKA_SERVER=http://eureka:8761/eureka
 
   weather:
@@ -34,7 +34,7 @@ services:
       - 8081:8081
     environment:
       - JAVA_OPTS=
-        -DPOSTGRES_SERVER=jdbc:postgresql://194.87.111.112:5432/postgres
+        -DPOSTGRES_SERVER=jdbc:postgresql://db:5432/postgres
         -DEUREKA_SERVER=http://eureka:8761/eureka
 
   predict:
